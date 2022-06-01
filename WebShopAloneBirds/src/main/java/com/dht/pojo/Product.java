@@ -4,6 +4,8 @@
  */
 package com.dht.pojo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 /**
  *
@@ -12,6 +14,7 @@ package com.dht.pojo;
 public class Product {
     private int id;
     private String name;
+     private String keyword;
     private int price;
     private String image;
     private String image_ad;
@@ -20,20 +23,18 @@ public class Product {
     public Product() {
         
     }
-    public Product(int id, String name,int price, String image, String image_ad, int category_id) {
+    public Product(int id, String name,String keyword,int price, int category_id, String image, String image_ad) {
         this.id = id;
         this.name = name;
         this.price=price;
         this.image=image;
+        this.keyword=keyword;
         this.image_ad=image_ad;
+
         this.category_id=category_id;
         
     }
     // Các phương thức getter/setter của các thuộc tính
-
-    public Product(int aInt, String string, String string0, double aDouble, String string1, String string2) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public int getId() {
         return id;
@@ -59,6 +60,7 @@ public class Product {
         this.price = price;
     }
 
+    
     public String getImage() {
         return image;
     }
@@ -66,6 +68,8 @@ public class Product {
     public void setImage(String image) {
         this.image = image;
     }
+
+    
 
     public String getImage_ad() {
         return image_ad;
@@ -83,24 +87,13 @@ public class Product {
         this.category_id = category_id;
     }
 
-   
-   
-   
-    @Override
-    public String toString() {
-        return "Product{" + "id=" + id + ", name=" + name + ", price=" + price + ", image=" + image + ", image_ad=" + image_ad + ", category_id=" + category_id + '}';
-    }
-    
-    public void setParameter(String b, String pass1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setId(Object object) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
-    
-
-   
-    
+  
 }

@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
   <class name="com.dht.pojo.Product" table="product">
       <id name="id" column="id" type="int" />
       <property name="name" column="name" type="string" />
+       <property name="keyword" column="keyword" type="string" />
       <property name="price" column="price" type="int" />
       <property name="image" column="image" type="string" />
       <property name="image_ad" column="image_ad" type="string" />
@@ -23,6 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/XML/XMLDocument.xml to edit this 
   <class name="com.dht.pojo.Account" table="account">
       <id name="user" column="user" type="string" />
       <property name="pass" column="pass" type="string" />
+      <property name="categoryuser" column="categoryuser" type="int" />
       
   </class>
 </hibernate-mapping>

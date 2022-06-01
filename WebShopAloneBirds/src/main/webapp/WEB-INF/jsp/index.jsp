@@ -58,20 +58,20 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="logo">
                             <div class="site-logo">
-                                <a href="" class="js-logo-clone">
-                                    <img src="./image/logo.png" alt="" style="width: 66px;" />
+                                <a href="/WebShopAloneBirds" class="js-logo-clone">
+                                    <img src="./images/logo.png" alt="" style="width: 66px;" />
                                 </a>
                             </div>
                         </div>
                         <div class="main-nav d-none d-lg-block">
                             <nav class="site-navigation text-right text-md-center" role="navigation">
                                 <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                     <li class="has-children">
-                                        <a href="">CATEGORY</a>
+                                    <li class="has-children">
+                                        <a style="font-family: cursive" href="">CATEGORY</a>
                                         <ul class="dropdown">
                                             <c:forEach items="${list}" var="o">
-                                                <li><a href="/WebShopAloneBirds/gallery?cid=${o.id}">${o.namec}</a></li> 
-                                            </c:forEach>                                                                                     
+                                                <li><a style="font-family: cursive" href="/WebShopAloneBirds/gallery?cid=${o.id}">${o.namec}</a></li> 
+                                                </c:forEach>                                                                                     
                                         </ul>
                                     </li>
                                     <li class="has-children">
@@ -101,7 +101,7 @@
                                             <li><a href="/shop/y-nguyen-ban-18-?s=11">GU Y Nguyên Bản 18-</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/shop/gu-the-thao?s=2">GU THỂ THAO 4DAD</a></li>
+
                                     <li class="has-children position-static">
                                         <a href="javascript:;"><span class="icon-menu"></span></a>
                                         <div class="dropdown w-100 dropdown-fullw">
@@ -178,33 +178,38 @@
                             </nav>
                         </div>
                         <div class="icons align-items-right" id="rightIconsBar">
-                            <c:forEach items="${acc}" var="o"><h2 style="color: hotpink;font-size: 20px;margin-top: 5px;margin-left: 30px; margin-bottom: -7px; font-weight: 400; "><span class="icon-user-o">: <i>${o.user}</i></h2></c:forEach>
+                            
+                            <c:forEach items="${account}" var="o">
+                                <h2 style="color: hotpink;font-size: 20px;margin-top: 5px;margin-left: 30px; margin-bottom: -7px; font-weight: 400; "><span class="icon-user-o">: <i>${o.user}</i></h2>                              
+                            </c:forEach>
                             <a href="javascript:;" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                            <a class="icons-btn d-inline-block" href="Login"><span class="icon-user-o"> </span></a>
+                            <a class="icons-btn d-inline-block" href="Signin"><span class="icon-user-o"> </span></a>
                             <a href="/cart/review" class="icons-btn d-inline-block bag">
                                 <span class="icon-shopping-bag"></span>
                                 <span class="number" id="NoOfItemsInCart">0</span>
                             </a>
-                            
+
                             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
-                           
+                            <a style="margin-left:20px; font-family: cursive; color: hotpink;font-size: 20px;margin-bottom: 10px!important  " class="${acc.categoryuser==1 ? "":"invisible"}" href="Manager">ManagerShop</a>
                         </div>
                     </div>
                 </div>
             </div>
-                            
+
             <!-- End Menu -->
 
             <div class="container-fluid mb-4">
-                    <div class="row container-fluid mb-4 ml-3" ">
-                   
+                <div style="text-align: center" class="col-sm-12 text-center">
+                    <p style=" font-family: cursive; font-size:24px; padding-top:10px; color:hotpink; padding-bottom: 10px" class="mb-1"><b>${mess}</b></p>                     
+                </div>  
+                <div class="row container-fluid mb-4 ml-3" ">               
                     <c:forEach items="${abcdef}" var="o">
                         <div class="col-6 col-sm-3 col-md-3 px-1"  data-aos="fade-up" style="background-color: lightgoldenrodyellow;">
                             <div class="pitem mb-3">
                                 <div class="owl-carousel owl-theme dsHinhSanPham">
                                     <a href="">
                                         <--<!-- <img loading="lazy" src="${o.image}" alt="Trắng" class="img-fluid d-block w-100" /> -->
-                                         <img src="./images/${o.image}" alt=""> 
+                                        <img src="./images/${o.image}" alt=""> 
                                     </a>
                                     <a href="ege">
                                         <!-- <img loading="lazy" src="https://cdn2.yame.vn/pimg/ao-thun-co-tron-toi-gian-ver12-0020772/1453a6bd-3792-0300-4dd3-001904648163.jpg?w=540&h=756&c=true" alt="Trắng" class="img-fluid d-block w-100" /> -->
@@ -221,12 +226,12 @@
                             </div>
                         </div>
                     </c:forEach>
-              </div>
-                <div class="row" data-aos="zoom-in" style="margin-top:-23.6px; ">
+                </div>
+                <div class="row " data-aos="zoom-in" style="margin-top:-30px">
                     <div class="col-12 text-center mb-2 px-0">
                         <a href="">
                             <!-- Sửa id -->
-                            <img loading="eager" src="https://cmsv2.yame.vn/uploads/ae0e3b11-cadb-410f-8241-ca6277d1cdc6/Banner_sale_N%c3%b3n.jpg?quality=80&amp;w=0&amp;h=0" class="img-fluid" alt="Flash Sale 50%" style="margin:auto; width:100%;" />
+                            <img loading="eager" src="https://th.bing.com/th/id/R.ac59a29f7b7eb0c596955a325f547c41?rik=yhl3wgfRF81ltw&pid=ImgRaw&r=0"  class="img-fluid" alt="Flash Sale 50%" style="margin:auto; width:100%;" />
                         </a>
                     </div>
                 </div>
@@ -385,7 +390,7 @@
                                 <div class="owl-carousel owl-theme dsHinhSanPham">
                                     <a href="/WebShopAloneBirds/Detail?pid=${o.id}">
                                         <--<!-- <img loading="lazy" src="${o.image}" alt="Trắng" class="img-fluid d-block w-100" /> -->
-                                         <img src="./images/${o.image}" alt=""> 
+                                        <img src="./images/${o.image}" alt=""> 
                                     </a>
                                     <a href="/WebShopAloneBirds/Detail?pid=${o.id}">
                                         <!-- <img loading="lazy" src="https://cdn2.yame.vn/pimg/ao-thun-co-tron-toi-gian-ver12-0020772/1453a6bd-3792-0300-4dd3-001904648163.jpg?w=540&h=756&c=true" alt="Trắng" class="img-fluid d-block w-100" /> -->
@@ -1139,7 +1144,7 @@
                         <div class="banner-home3-colection-top" style="margin-bottom:10px;">
                             <a href="">
                                 <p>AloneBirds-Stores là tập hợp 4 thanh niên ưu tú có khả năng vượt mọi sự gian khổ cùng nhau cố gắng để trở nên tốt hơn.</p>
-                                <img src="./image/logo.png" alt="">
+                                <img src="./images/logo.png" alt="">
                             </a>
                         </div>
                         <div class="row"></div>
@@ -1318,7 +1323,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center mb-2">
-                            <a href="/">
+                            <a href="/WebShopAloneBirds/">
                                 <img src="./images/logo.png" style="height: 70px;" />
                             </a>
                         </div>
@@ -1538,56 +1543,56 @@
 </html>
 
 <script>
-        window._wpemojiSettings = {"baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/", "svgExt": ".svg", "source": {"concatemoji": "https:\/\/blueskytechco.com\/rubix\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.6"}};
-        !function (e, a, t) {
-            var n, r, o, i = a.createElement("canvas"),
-                    p = i.getContext && i.getContext("2d");
-            function s(e, t) {
-                var a = String.fromCharCode;
-                p.clearRect(0, 0, i.width, i.height),
-                        p.fillText(a.apply(this, e), 0, 0);
-                e = i.toDataURL();
-                return p.clearRect(0, 0, i.width, i.height),
-                        p.fillText(a.apply(this, t), 0, 0), e === i.toDataURL()
-            }
-            function c(e) {
-                var t = a.createElement("script");
-                t.src = e, t.defer = t.type = "text/javascript",
-                        a.getElementsByTagName("head")[0].appendChild(t)
-            }
-            for (o = Array("flag", "emoji"),
-                    t.supports = {everything:!0, everythingExceptFlag:!0}, r = 0; r < o.length; r++)
-                t.supports[o[r]] = function (e) {
-                    if (!p || !p.fillText)
-                        return!1;
-                    switch (p.textBaseline = "top", p.font = "600 32px Arial", e)
-                    {
-                        case"flag":
-                            return s([127987, 65039, 8205, 9895, 65039],
-                                    [127987, 65039, 8203, 9895, 65039])
-                                    ? !1 : !s([55356, 56826, 55356, 56819],
-                                            [55356, 56826, 8203, 55356, 56819]) && !s([55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447],
-                                    [55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447]);
-                        case"emoji":
-                            return!s([55357, 56424, 8205, 55356, 57212], [55357, 56424, 8203, 55356, 57212])
-                    }
-                    return!1
-                }(o[r]),
-                        t.supports.everything = t.supports.everything && t.supports[o[r]],
-                        "flag" !== o[r] && (t.supports.everythingExceptFlag = t.supports.everythingExceptFlag && t.supports[o[r]]);
-            t.supports.everythingExceptFlag = t.supports.everythingExceptFlag && !t.supports.flag, t.DOMReady = !1,
-                    t.readyCallback = function () {
-                        t.DOMReady = !0
-                    },
-                    t.supports.everything || (n = function () {
-                        t.readyCallback()
-                    }, a.addEventListener ? (a.addEventListener("DOMContentLoaded", n, !1),
-                            e.addEventListener("load", n, !1)) : (e.attachEvent("onload", n),
-                            a.attachEvent("onreadystatechange",
-                                    function () {
-                                        "complete" === a.readyState && t.readyCallback()
-                                    })),
-                            (n = t.source || {}).concatemoji ? c(n.concatemoji) : n.wpemoji && n.twemoji && (c(n.twemoji),
-                            c(n.wpemoji)))
-        }(window, document, window._wpemojiSettings);
+            window._wpemojiSettings = {"baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/72x72\/", "ext": ".png", "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/13.0.1\/svg\/", "svgExt": ".svg", "source": {"concatemoji": "https:\/\/blueskytechco.com\/rubix\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.7.6"}};
+            !function (e, a, t) {
+                var n, r, o, i = a.createElement("canvas"),
+                        p = i.getContext && i.getContext("2d");
+                function s(e, t) {
+                    var a = String.fromCharCode;
+                    p.clearRect(0, 0, i.width, i.height),
+                            p.fillText(a.apply(this, e), 0, 0);
+                    e = i.toDataURL();
+                    return p.clearRect(0, 0, i.width, i.height),
+                            p.fillText(a.apply(this, t), 0, 0), e === i.toDataURL()
+                }
+                function c(e) {
+                    var t = a.createElement("script");
+                    t.src = e, t.defer = t.type = "text/javascript",
+                            a.getElementsByTagName("head")[0].appendChild(t)
+                }
+                for (o = Array("flag", "emoji"),
+                        t.supports = {everything:!0, everythingExceptFlag:!0}, r = 0; r < o.length; r++)
+                    t.supports[o[r]] = function (e) {
+                        if (!p || !p.fillText)
+                            return!1;
+                        switch (p.textBaseline = "top", p.font = "600 32px Arial", e)
+                        {
+                            case"flag":
+                                return s([127987, 65039, 8205, 9895, 65039],
+                                        [127987, 65039, 8203, 9895, 65039])
+                                        ? !1 : !s([55356, 56826, 55356, 56819],
+                                                [55356, 56826, 8203, 55356, 56819]) && !s([55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447],
+                                        [55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447]);
+                            case"emoji":
+                                return!s([55357, 56424, 8205, 55356, 57212], [55357, 56424, 8203, 55356, 57212])
+                        }
+                        return!1
+                    }(o[r]),
+                            t.supports.everything = t.supports.everything && t.supports[o[r]],
+                            "flag" !== o[r] && (t.supports.everythingExceptFlag = t.supports.everythingExceptFlag && t.supports[o[r]]);
+                t.supports.everythingExceptFlag = t.supports.everythingExceptFlag && !t.supports.flag, t.DOMReady = !1,
+                        t.readyCallback = function () {
+                            t.DOMReady = !0
+                        },
+                        t.supports.everything || (n = function () {
+                            t.readyCallback()
+                        }, a.addEventListener ? (a.addEventListener("DOMContentLoaded", n, !1),
+                                e.addEventListener("load", n, !1)) : (e.attachEvent("onload", n),
+                                a.attachEvent("onreadystatechange",
+                                        function () {
+                                            "complete" === a.readyState && t.readyCallback()
+                                        })),
+                                (n = t.source || {}).concatemoji ? c(n.concatemoji) : n.wpemoji && n.twemoji && (c(n.twemoji),
+                                c(n.wpemoji)))
+            }(window, document, window._wpemojiSettings);
 </script>

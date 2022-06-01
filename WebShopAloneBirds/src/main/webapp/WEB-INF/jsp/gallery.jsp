@@ -58,8 +58,8 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="logo">
                             <div class="site-logo">
-                                <a href="" class="js-logo-clone">
-                                    <img src="./image/logo.png" alt="" style="width: 66px;" />
+                                <a href="/WebShopAloneBirds/" class="js-logo-clone">
+                                    <img src="./images/logo.png" alt="" style="width: 66px;" />
                                 </a>
                             </div>
                         </div>
@@ -101,7 +101,7 @@
                                             <li><a href="/shop/y-nguyen-ban-18-?s=11">GU Y Nguyên Bản 18-</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/shop/gu-the-thao?s=2">GU THỂ THAO 4DAD</a></li>
+                           
                                     <li class="has-children position-static">
                                         <a href="javascript:;"><span class="icon-menu"></span></a>
                                         <div class="dropdown w-100 dropdown-fullw">
@@ -191,9 +191,8 @@
             </div>
             <!-- End Menu -->
             <div class="row container-fluid mb-4 ml-3" ">
-                    <div class="col-sm-12 text-center">
-                        <p style="font-size:24px; padding-top:20px; color:hotpink;" class="mb-1">Thể Loại Sản phẩm Bạn Đang Tìm</p>                     
-                    </div>
+                <div style="text-align: center" class="col-sm-12 text-center">
+  <p style="font-family: cursive; font-size:24px; padding-top:20px; color:hotpink; padding-bottom: 20px" class="mb-1"><b>${mess}</b></p>                      </div>
                     <c:forEach items="${latest}" var="o">
                         <div class="col-6 col-sm-3 col-md-3 px-1"  data-aos="fade-up" style="background-color: lightgoldenrodyellow;">
                             <div class="pitem mb-3">
@@ -219,14 +218,7 @@
                     </c:forEach>
               </div>
             <div class="container-fluid mb-4">
-                <div class="row" data-aos="zoom-in">
-                    <div class="col-12 text-center mb-2 px-0">
-                        <a href="">
-                            <!-- Sửa id -->
-                            <img loading="eager" src="https://cmsv2.yame.vn/uploads/ae0e3b11-cadb-410f-8241-ca6277d1cdc6/Banner_sale_N%c3%b3n.jpg?quality=80&amp;w=0&amp;h=0" class="img-fluid" alt="Flash Sale 50%" style="margin:auto; width:100%;" />
-                        </a>
-                    </div>
-                </div>
+                
                 <div class="row" data-aos="zoom-in">
                     <div class="owl-carousel owl-theme" id="dsLookbook">
                         <div class="col-12  px-1">

@@ -7,11 +7,15 @@ package com.dht.springmvcdemo.controller;
 import com.dht.pojo.Account;
 import com.dht.pojo.Category;
 import com.dht.pojo.Product;
+import com.dht.pojo.Word;
 import com.dht.springmvcdemo4.HibernateUtil;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import static java.lang.Integer.parseInt;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +24,10 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,15 +40,15 @@ public class HomeController {
     public String index(Model model) {
 
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query q = session.createQuery("FROM Product");
+
         Query p = session.createQuery("FROM Category");
         Query a = session.createQuery("FROM Product u ORDER BY u.id DESC");
-        List<Product> products = q.list();
+
         List<Category> categories = p.list();
         List<Product> last = a.list();
 
         session.close();
-        model.addAttribute("message", products);
+
         model.addAttribute("list", categories);
         model.addAttribute("latest", last);
 
@@ -62,10 +69,20 @@ public class HomeController {
         List<Category> categories = p.list();
 
         session.close();
-        model.addAttribute("latest", last);
+
         model.addAttribute("list", categories);
 
-        return "gallery";
+        if (last.isEmpty() == true) {
+            session.close();
+            model.addAttribute("mess", "Loại Mặt Hàng Bạn Đang Tìm Kiếm Hiện Đang Hết Hàng Hoặc Ngưng Cung Cấp");
+            return "gallery";
+        } else {
+
+            model.addAttribute("latest", last);
+            model.addAttribute("mess", "Loại Mặt Hàng Bạn Đang Tìm Kiếm");
+            return "gallery";
+        }
+
     }
 
     @RequestMapping(value = "/confirm")
@@ -79,27 +96,37 @@ public class HomeController {
 
         a.setParameter("lc", user1);
         a.setParameter("lq", pass1);
-
+        List<Account> accounts = a.list();
         Query p = session.createQuery("FROM Category");
         List<Category> categories = p.list();
         model.addAttribute("list", categories);
+        model.addAttribute("account", accounts);
 
         Query q = session.createQuery("FROM Product u ORDER BY u.id DESC");
         List<Product> products = q.list();
         model.addAttribute("latest", products);
 
-        List<Product> acc = a.list();
-
-        if (acc.isEmpty() == true) {
+        session.beginTransaction();
+        // Lấy danh mục theo khoá chính
+        Account acc = (Account) session.get(Account.class, user1);
+        if (accounts.isEmpty() == true) {
+            model.addAttribute("mess", "Wrong user or password. Be careful with our attorneys!");
+            return "singin";
+        }
+        if (acc == null) {
             session.close();
             model.addAttribute("mess", "Wrong user or password. Be careful with our attorneys!");
-            return "Login";
+            return "singin";
         } else {
+            if (acc.getCategoryuser() != 0) {
+                model.addAttribute("acc", acc);
+                return "index";
+            } else {
+                model.addAttribute("acc", acc);
+                return "index";
+            }
 
-            model.addAttribute("acc", acc);
-            return "index";
         }
-
     }
 //
 
@@ -111,13 +138,18 @@ public class HomeController {
 
         if (!pass1.equals(repass1)) {
 
-            model.addAttribute("mess", "User Existed or Wrong Repeat PassWord");
-            return ("Login");
+            model.addAttribute("messs", "Wrong Repeat PassWord :(");
+            return ("singin");
         } else {
             Session session = HibernateUtil.getSessionFactory().openSession();
+
+            Query q = session.createQuery("FROM Product u ORDER BY u.id DESC");
+            List<Product> products = q.list();
+            model.addAttribute("latest", products);
+
             Query a = session.createQuery("FROM Account u Where u.user=:lc");
             a.setParameter("lc", user1);
-            List<Product> acc = a.list();
+            List<Account> acc = a.list();
 
             if (acc.isEmpty() == true) {
 
@@ -126,39 +158,50 @@ public class HomeController {
 //                b.setParameter("ab", user1);
 //                b.setParameter("ac", pass1);
                 session.beginTransaction();
-                Account cate = new Account(user1, pass1);
+                Account cate = new Account(user1, pass1, 0);
 //                 cate.setParameter("a", user1);
 //                 cate.setParameter("b", pass1);
 
                 session.save(cate);
                 session.getTransaction().commit();
-                session.close();
 
                 //session.save(b);
-//                session.close();
-                //model.addAttribute("acc", accc);
-                model.addAttribute("mess", "Create Account Success. Please login again to check");
-                return "Login";
+                Query p = session.createQuery("FROM Account u Where u.user=:lc");
+                p.setParameter("lc", user1);
+                List<Account> acb = p.list();
+                session.close();
+                model.addAttribute("account", acb);
+                //model.addAttribute("messss", "Create Account Success. Please login again to check your account");
+                return "index";
 
             } else {
                 session.close();
-                model.addAttribute("mess", "User Existed or Wrong Repeat PassWord");
-                return "Login";
+                model.addAttribute("messss", "User Existed :(");
+                return "singin";
             }
         }
 
     }
 
-    @RequestMapping(value = "/Login")
-    public String login(Model model) {
-        return "Login";
+    @RequestMapping(value = "/Signin")
+    public String signin(Model model) {
+        return "singin";
     }
-    
-     @RequestMapping(value = "/LoadEdit")
+
+    @RequestMapping(value = "/LoadNew")
+    public String loadnew(Model model) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Query p = session.createQuery("FROM Category");
+        List<Category> categories = p.list();
+        model.addAttribute("cate", categories);
+        return "NewProduct";
+    }
+
+    @RequestMapping(value = "/LoadEdit")
     public String LoadEdit(Model model, HttpServletRequest request, HttpServletResponse response, int eid) throws IOException {
-         int proId = parseInt(request.getParameter("eid"));
+        int proId = parseInt(request.getParameter("eid"));
         // int u=(int)cateID;
-  request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Session session = HibernateUtil.getSessionFactory().openSession();
         Query p = session.createQuery("FROM Category");
         Query a = session.createQuery("FROM Product u Where u.id=:lc");
@@ -172,19 +215,20 @@ public class HomeController {
         model.addAttribute("category", categories);
         return "edit";
     }
-     @RequestMapping(value = "/edit")
-    public String edit(Model model,HttpServletRequest request, HttpServletResponse response, int id, String name, String image, String image_ad, int price, int category) throws IOException {
-         Session session = HibernateUtil.getSessionFactory().openSession();
-          request.setCharacterEncoding("UTF-8");
+
+    @RequestMapping(value = "/edit")
+    public String edit(Model model, HttpServletRequest request, HttpServletResponse response, int id, String name, String image, String image_ad, int price, int category) throws IOException {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        request.setCharacterEncoding("UTF-8");
         String name1 = request.getParameter("name");
         String image1 = request.getParameter("image");
         String image_ad1 = request.getParameter("image_ad");
         int proID = parseInt(request.getParameter("id"));
         int price1 = parseInt(request.getParameter("price"));
         int category1 = parseInt(request.getParameter("category"));
-        
-         session.beginTransaction();
-           Product pro = (Product) session.get(Product.class, proID);
+
+        session.beginTransaction();
+        Product pro = (Product) session.get(Product.class, proID);
         pro.setId(proID);
         pro.setName(name1);
         pro.setImage(image1);
@@ -193,49 +237,58 @@ public class HomeController {
         pro.setCategory_id(category1);
 
         session.update(pro);
-       session.getTransaction().commit();
- 
-
-  
-        Query p = session.createQuery("FROM Category");
-        List<Category> categories = p.list();
-        session.close();
-        model.addAttribute("category", categories);
-  
-        return "ManagerProduct";
-    }
-
-    @RequestMapping(value = "/newproduct")
-    public String newproduct(Model model, HttpServletRequest request, HttpServletResponse response, int id, String name, String image, String image_ad, int price, int category) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        String name1 = request.getParameter("name");
-        String image1 = request.getParameter("image");
-        String image_ad1 = request.getParameter("image_ad");
-        //int proID = parseInt(request.getParameter("id"));
-        int price1 = parseInt(request.getParameter("price"));
-        int category1 = parseInt(request.getParameter("category"));
-
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.getTransaction().commit();
 
         Query q = session.createQuery("FROM Product u order by u.id desc");
 
         List<Product> products = q.list();
-
         model.addAttribute("product", products);
 
-        session.beginTransaction();
-        Product pro = new Product();
-        //pro.setId(proID);
-        pro.setName(name1);
-        pro.setImage(image1);
-        pro.setImage_ad(image_ad1);
-        pro.setPrice(price1);
-        pro.setCategory_id(category1);
-
-        session.save(pro);
-        session.getTransaction().commit();
+        Query p = session.createQuery("FROM Category");
+        List<Category> categories = p.list();
         session.close();
+        model.addAttribute("category", categories);
 
+        return "ManagerProduct";
+    }
+
+    @RequestMapping(value = "/newproduct")
+    public String newproduct(Model model,
+            HttpServletRequest request, int id, String image, String image_ad, String name, int price, int category) {
+        try {
+            request.setCharacterEncoding("UTF-8");
+
+            String name1 = request.getParameter("name");
+            String image11 = request.getParameter("image");
+            String image_ad11 = request.getParameter("image_ad");
+            //int proID = parseInt(request.getParameter("id"));
+            int price1 = parseInt(request.getParameter("price"));
+            int category1 = parseInt(request.getParameter("category"));
+
+            Session session = HibernateUtil.getSessionFactory().openSession();
+
+            session.beginTransaction();
+            Product pro = new Product();
+            //pro.setId(proID);
+            pro.setName(name1);
+            pro.setImage(image11);
+            pro.setImage_ad(image_ad11);
+            pro.setPrice(price1);
+            pro.setCategory_id(category1);
+
+            session.save(pro);
+            session.getTransaction().commit();
+
+            Query q = session.createQuery("FROM Product u order by u.id desc");
+
+            List<Product> products = q.list();
+            session.close();
+
+            model.addAttribute("product", products);
+
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "ManagerProduct";
     }
 
@@ -251,7 +304,7 @@ public class HomeController {
         session.delete(pro);
         session.getTransaction().commit();
 
-        Query q = session.createQuery("FROM Product");
+        Query q = session.createQuery("FROM Product u order by u.id desc");
 
         List<Product> products = q.list();
         session.close();
@@ -279,7 +332,7 @@ public class HomeController {
         request.setCharacterEncoding("UTF-8");
         String keyword1 = request.getParameter("keyword");
         Session session = HibernateUtil.getSessionFactory().openSession();
-        Query a = session.createQuery("FROM Product u Where u.name like :lc");
+        Query a = session.createQuery("FROM Product u Where u.name like :lc or u.keyword like :lc");
 
         a.setParameter("lc", "%" + keyword1 + "%");
 
@@ -292,9 +345,17 @@ public class HomeController {
         model.addAttribute("latest", products);
 
         List<Product> acc = a.list();
-        session.close();
-        model.addAttribute("abcdef", acc);
-        return "index";
+
+        if (acc.isEmpty() == true) {
+            session.close();
+            model.addAttribute("mess", "Chúng tôi không tìm thấy sản phẩm nào. Vui lòng thử lại.");
+            return "index";
+        } else {
+            model.addAttribute("mess", "Đây CÓ Phải Sản Phẩm Bạn Đang Tìm Kiếm");
+
+            model.addAttribute("abcdef", acc);
+            return "index";
+        }
 
     }
 //    @RequestMapping(value = "/search")
@@ -315,8 +376,8 @@ public class HomeController {
 //    }
 
     @RequestMapping(value = "/Detail")
-    public String detail(Model model, HttpServletRequest request, HttpServletResponse response, String pid) {
-        String proID = request.getParameter("pid");
+    public String detail(Model model, HttpServletRequest request, HttpServletResponse response, int pid) {
+        int proID = parseInt(request.getParameter("pid"));
         model.addAttribute("message", "Welcome to our Website!!!");
 
         Session session = HibernateUtil.getSessionFactory().openSession();
@@ -332,4 +393,5 @@ public class HomeController {
         model.addAttribute("list", categories);
         return "Detail";
     }
+
 }

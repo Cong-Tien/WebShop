@@ -72,8 +72,8 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="logo">
                             <div class="site-logo">
-                                <a href="" class="js-logo-clone">
-                                    <img src="./image/logo.png" alt="" style="width: 66px;" />
+                                <a href="/WebShopAloneBirds/" class="js-logo-clone">
+                                    <img src="./images/logo.png" alt="" style="width: 66px;" />
                                 </a>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                                             <li><a href="/shop/y-nguyen-ban-18-?s=11">GU Y Nguyên Bản 18-</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="/shop/gu-the-thao?s=2">GU THỂ THAO 4DAD</a></li>
+                                    
                                     <li class="has-children position-static">
                                         <a href="javascript:;"><span class="icon-menu"></span></a>
                                         <div class="dropdown w-100 dropdown-fullw">
@@ -192,13 +192,16 @@
                             </nav>
                         </div>
                         <div class="icons align-items-right" id="rightIconsBar">
+                            <c:forEach items="${acc}" var="o"><h2 style="color: hotpink;font-size: 20px;margin-top: 5px;margin-left: 30px; margin-bottom: -7px; font-weight: 400; "><span class="icon-user-o">: <i>${o.user}</i></h2></c:forEach>
                             <a href="javascript:;" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-                            <a class="icons-btn d-inline-block" href="/member"><span class="icon-user-o"></span></a>
+                            <a class="icons-btn d-inline-block" href="Login"><span class="icon-user-o"> </span></a>
                             <a href="/cart/review" class="icons-btn d-inline-block bag">
                                 <span class="icon-shopping-bag"></span>
                                 <span class="number" id="NoOfItemsInCart">0</span>
                             </a>
+                            
                             <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span class="icon-menu"></span></a>
+                           
                         </div>
                     </div>
                 </div>
@@ -327,15 +330,14 @@
                             <div class="product-details"><!--product-details-->
                                 <div class="col-sm-5">
                                      <c:forEach items="${latest}" var="o">                                               
-                                    <div class="view-product">
-                                        <img src="images/${o.image}" alt="" />
-                                        <h3>ZOOM</h3>
+                                    <div class="">
+                                        <img src="images/${o.image}" alt="" width="380px !important"/>
                                     </div>
                                     <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                                         <!-- Wrapper for slides -->
-                                        <div class="carousel-inner">
-                                            <div class="item active">
+                                        <div  class="carousel-inner">
+                                            <div style="width: 500px" class="item active">
                                                 <a href=""><img style="width: 80px;height:100px" src="images/m4.png" alt=""></a>
                                                 <a href=""><img style="width: 80px;height:100px" src="images/m1.png" alt=""></a>
                                                 <a href=""><img style="width: 80px;height:100px" src="images/m2.png" alt=""></a>
@@ -365,16 +367,16 @@
                                 </div>
                                 <div class="col-sm-7">
                                     <div class="product-information"><!--/product-information-->
-                                        <img src="images/product-details/new.jpg" class="newarrival" alt="" />
-                                        <h2>${o.name}</h2>
-                                        <p>Web ID: 1089772</p>
+                                        
+                                        <h2 style="color: hotpink !important">${o.name}</h2>
+                                        <p style="color: lightpink !important">Web ID: ${o.id}</p>
                                         <img src="images/product-details/rating.png" alt="" />
                                         <span>
-                                            <span>${o.price} VNĐ</span>
+                                            <span style="color: pink !important">${o.price} USD</span>
                                             <label>Quantity:</label>
                                             <input type="text" value="3" />
-                                            <button type="button" class="btn btn-fefault cart">
-                                                <i class="fa fa-shopping-cart"></i>
+                                            <button style="color: white !important; margin-top: 10px" type="button" class="btn btn-fefault cart">
+                                                <i  class="fa fa-shopping-cart"></i>
                                                 Add to cart
                                             </button>
                                         </span>

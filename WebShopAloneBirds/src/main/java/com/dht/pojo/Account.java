@@ -14,15 +14,16 @@ public class Account {
 
     private String user;
     private String pass;
+    private int categoryuser;
 
     public Account() {
 
     }
 
-    public Account(String user, String pass) {
+    public Account(String user, String pass, int categoryuser) {
         this.user = user;
-        this.pass = pass;
-
+        this.pass = pass;   
+        this.categoryuser=categoryuser;
     }
 
     public Account(int aInt, String string, String string0, double aDouble, String string1, String string2) {
@@ -49,9 +50,18 @@ public class Account {
         this.pass = pass;
     }
 
+
+    public int getCategoryuser() {
+        return categoryuser;
+    }
+
+    public void setCategoryuser(int categoryuser) {
+        this.categoryuser = categoryuser;
+    }
+
     @Override
     public String toString() {
-        return "Account{" + "user=" + user + ", pass=" + pass + '}';
+        return "Account{" + "user=" + user + ", pass=" + pass + ", categoryuser=" + categoryuser + '}';
     }
 
     
